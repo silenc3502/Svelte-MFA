@@ -1,25 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
+import { Button } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+
+// 네비게이션 바 컴포넌트를 lazy 로드
+const NavigationBarApp = lazy(() => import("navigationBarApp/App"));
+const HtmlCssTestApp = lazy(() => import("htmlCssTestApp/App"));
 
 const App = () => {
-    const [Component, setComponent] = useState<React.ComponentType | null>(null);
+    const [isNavigationBarLoaded, setIsNavigationBarLoaded] = useState(false);
 
     useEffect(() => {
-        import("htmlCssTestApp/App").then((module) => {
-            setComponent(() => module.default); // Ensure you're accessing the default export
-        });
+        import("navigationBarApp/App")
+            .then(() => setIsNavigationBarLoaded(true))
+            .catch((err) => console.error("Failed to load navigation bar:", err));
     }, []);
 
-    if (!Component) return <div>Loading...</div>;
-
     return (
-        <div className="mt-10 text-3xl mx-auto max-w-6xl">
-            <div>Name: html-container</div>
-            <div>Framework: react-19</div>
-            <Component /> {/* Rendering the App component from html-css-test-app */}
-        </div>
+        <BrowserRouter>
+            <Suspense fallback={<CircularProgress />}>
+                {/* ✅ 네비게이션 바를 Routes 바깥에 둠 (항상 표시됨) */}
+                <NavigationBarApp />
+
+                {/* ✅ URL에 따라 다른 페이지를 렌더링 */}
+                <Routes>
+                    <Route path="/" element={<div>Home Page</div>} />
+                    <Route path="/html-css-test" element={<HtmlCssTestApp />} />
+                </Routes>
+            </Suspense>
+        </BrowserRouter>
     );
 };
 
-const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement);
+export default App;
+
+const container = document.getElementById("app") as HTMLElement;
+if (!container) {
+    throw new Error("Root container #app not found");
+}
+
+const root = ReactDOM.createRoot(container);
 root.render(<App />);

@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "html-container",
-    "html-css-test-app"
+    "html-css-test-app",
+    "navigation-bar-app"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -12,12 +13,5 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "lerna": "^8.2.1"
-  },
-  "dependencies": {
-    "@mui/material": "^7.0.1",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   }
 }
