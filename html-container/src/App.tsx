@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 // 네비게이션 바 컴포넌트를 lazy 로드
 const NavigationBarApp = lazy(() => import("navigationBarApp/App"));
 const HtmlCssTestApp = lazy(() => import("htmlCssTestApp/App"));
+const JavaScriptTestApp = lazy(() => import("javascriptTestApp/App"));
 
 const App = () => {
     const [isNavigationBarLoaded, setIsNavigationBarLoaded] = useState(false);
@@ -27,6 +28,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<div>Home Page</div>} />
                     <Route path="/html-css-test" element={<HtmlCssTestApp />} />
+                    <Route path="/javascript-test" element={<JavaScriptTestApp />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>

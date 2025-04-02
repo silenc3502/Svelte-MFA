@@ -4,7 +4,8 @@
   "workspaces": [
     "html-container",
     "html-css-test-app",
-    "navigation-bar-app"
+    "navigation-bar-app",
+    "javascript-test-app"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
