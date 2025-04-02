@@ -1,16 +1,24 @@
+import React from "react";
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
-const App = () => (
-    <div className="mt-10 text-3xl mx-auto max-w-6xl">
-        <div>Name: html-css-test-app</div>
-        <div>Framework: react-19</div>
-    </div>
-);
+import { Button, Typography } from "@mui/material";
 
-export default App; // Default export 추가
+const App = () => {
+    return (
+        <div>
+            <Typography variant="h5" gutterBottom>
+                This is the Remote Micro Frontend
+            </Typography>
+            <Button variant="contained" color="primary">
+                Click Me
+            </Button>
+        </div>
+    );
+};
+
+export default App;
 
 const root = ReactDOM.createRoot(document.getElementById("app") as HTMLElement);
-
 root.render(<App />);

@@ -1,14 +1,15 @@
-import { rspack } from "@rspack/core";
 import * as path from "node:path";
 import { defineConfig } from "@rspack/cli";
+import { rspack } from "@rspack/core";
 import * as RefreshPlugin from "@rspack/plugin-react-refresh";
 import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
+
 
 import { mfConfig } from "./module-federation.config";
 
 const isDev = process.env.NODE_ENV === "development";
 
-// Target browsers
+// Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
 
 export default defineConfig({
@@ -17,23 +18,25 @@ export default defineConfig({
     main: "./src/index.ts",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".jsx", ".js"],
-    alias: {
-      "@mui/material": path.resolve(__dirname, "node_modules/@mui/material/esm/"),
-    },
+    extensions: ["...", ".ts", ".tsx", ".jsx"],
   },
+
   devServer: {
     port: 3000,
     historyApiFallback: true,
     watchFiles: [path.resolve(__dirname, "src")],
   },
   output: {
+    // You need to set a unique value that is not equal to other applications
     uniqueName: "html_container",
+    // publicPath must be configured if using manifest
     publicPath: "http://localhost:3000/",
   },
+
   experiments: {
     css: true,
   },
+
   module: {
     rules: [
       {
@@ -75,27 +78,7 @@ export default defineConfig({
     new rspack.HtmlRspackPlugin({
       template: "./index.html",
     }),
-    new ModuleFederationPlugin({
-      ...mfConfig,
-      shared: {
-        ...mfConfig.shared,
-        "@mui/material": {
-          singleton: true,
-          eager: true,
-          requiredVersion: "^7.0.1", // 정확한 버전 명시
-        },
-        "@emotion/react": {
-          singleton: true,
-          eager: true,
-          requiredVersion: "^11.14.0",
-        },
-        "@emotion/styled": {
-          singleton: true,
-          eager: true,
-          requiredVersion: "^11.14.0",
-        },
-      },
-    }),
+    new ModuleFederationPlugin(mfConfig),
     isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
   optimization: {
