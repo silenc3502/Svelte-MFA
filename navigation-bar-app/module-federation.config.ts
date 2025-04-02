@@ -1,8 +1,8 @@
 export const mfConfig = {
-  name: "html_container",
-  remotes: {
-    htmlCssTestApp: "htmlCssTestApp@http://localhost:3001/remoteEntry.js",
-    navigationBarApp: "navigationBarApp@http://localhost:3002/remoteEntry.js",
+  name: "navigationBarApp",
+  filename: "remoteEntry.js",
+  exposes: {
+    "./App": "./src/App", // NavigationBar 컴포넌트를 expose
   },
   shared: {
     react: { singleton: true, requiredVersion: "^18.2.0" },
