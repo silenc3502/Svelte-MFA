@@ -6,7 +6,8 @@
     "html-css-test-app",
     "navigation-bar-app",
     "javascript-test-app",
-    "react-board-app"
+    "react-board-app",
+    "svelte-basic-app"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",

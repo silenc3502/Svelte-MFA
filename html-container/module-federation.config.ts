@@ -5,6 +5,7 @@ export const mfConfig = {
     navigationBarApp: "navigationBarApp@http://localhost:3002/remoteEntry.js",
     javascriptTestApp: "javascriptTestApp@http://localhost:3003/remoteEntry.js",
     reactBoardApp: "reactBoardApp@http://localhost:3004/remoteEntry.js",
+    svelteBasicApp: "svelteBasicApp@http://localhost:3005/remoteEntry.js",
   },
   shared: {
     react: { singleton: true, requiredVersion: "^18.2.0" },

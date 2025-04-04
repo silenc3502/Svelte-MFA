@@ -19,6 +19,9 @@ const NavigationBarApp: React.FC = () => {
                 <Button color="inherit" component={Link} to="/board/list">
                     게시판
                 </Button>
+                <Button color="inherit" component={Link} to="/svelte-test">
+                    Svelte 테스트
+                </Button>
             </Toolbar>
         </AppBar>
     );

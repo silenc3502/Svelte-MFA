@@ -1,14 +1,40 @@
-import React, {lazy, Suspense, useEffect, useState} from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { Button } from "@mui/material";
 import { CircularProgress } from "@mui/material";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-// 네비게이션 바 컴포넌트를 lazy 로드
+// Lazy-load other React apps
 const NavigationBarApp = lazy(() => import("navigationBarApp/App"));
 const HtmlCssTestApp = lazy(() => import("htmlCssTestApp/App"));
 const JavaScriptTestApp = lazy(() => import("javascriptTestApp/App"));
 const ReactBoardApp = lazy(() => import("reactBoardApp/App"));
+
+// ✅ Svelte 래퍼 컴포넌트 (JSX 대신 수동 마운트)
+const SvelteWrapper = () => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let component: any;
+        import("svelteBasicApp/App")
+            .then((mod) => {
+                const SvelteApp = mod.default;
+                component = new SvelteApp({
+                    target: ref.current,
+                    props: { message: "Hello from React Container!" },
+                });
+            })
+            .catch((err) => {
+                console.error("Failed to mount Svelte app:", err);
+            });
+
+        return () => {
+            // 💡 Svelte 컴포넌트 정리 (unmount)
+            if (component?.$destroy) component.$destroy();
+        };
+    }, []);
+
+    return <div ref={ref} />;
+};
 
 const App = () => {
     const [isNavigationBarLoaded, setIsNavigationBarLoaded] = useState(false);
@@ -22,15 +48,14 @@ const App = () => {
     return (
         <BrowserRouter>
             <Suspense fallback={<CircularProgress />}>
-                {/* ✅ 네비게이션 바를 Routes 바깥에 둠 (항상 표시됨) */}
                 <NavigationBarApp />
 
-                {/* ✅ URL에 따라 다른 페이지를 렌더링 */}
                 <Routes>
                     <Route path="/" element={<div>Home Page</div>} />
                     <Route path="/html-css-test" element={<HtmlCssTestApp />} />
                     <Route path="/javascript-test" element={<JavaScriptTestApp />} />
                     <Route path="/board/*" element={<ReactBoardApp />} />
+                    <Route path="/svelte-test" element={<SvelteWrapper />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>
