@@ -16,6 +16,9 @@ const NavigationBarApp: React.FC = () => {
                 <Button color="inherit" component={Link} to="/javascript-test">
                     Javascript Test
                 </Button>
+                <Button color="inherit" component={Link} to="/board/list">
+                    게시판
+                </Button>
             </Toolbar>
         </AppBar>
     );

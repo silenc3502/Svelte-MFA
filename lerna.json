@@ -5,7 +5,8 @@
     "html-container",
     "html-css-test-app",
     "navigation-bar-app",
-    "javascript-test-app"
+    "javascript-test-app",
+    "react-board-app"
   ],
   "hoist": true
 }
