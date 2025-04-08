@@ -6,11 +6,13 @@ export const mfConfig = {
     javascriptTestApp: "javascriptTestApp@http://localhost:3003/remoteEntry.js",
     reactBoardApp: "reactBoardApp@http://localhost:3004/remoteEntry.js",
     svelteBasicApp: "svelteBasicApp@http://localhost:3005/remoteEntry.js",
+    authenticationApp: "authenticationApp@http://localhost:3006/remoteEntry.js",
   },
   shared: {
     react: { singleton: true, requiredVersion: "^18.2.0" },
     "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
     "@mui/material": { singleton: true, requiredVersion: "^7.0.1" },
+    "@mui/icons-material": { singleton: true, requiredVersion: "^7.0.1" },
     "react-router-dom": { singleton: true, requiredVersion: "^6.30.0" },
   },
 };

@@ -1,8 +1,8 @@
 export const mfConfig = {
-  name: "navigationBarApp",
+  name: "authenticationApp",
   filename: "remoteEntry.js",
   exposes: {
-    "./App": "./src/App", // NavigationBar 컴포넌트를 expose
+    "./App": "./src/App",
   },
   shared: {
     react: { singleton: true, requiredVersion: "^18.2.0" },

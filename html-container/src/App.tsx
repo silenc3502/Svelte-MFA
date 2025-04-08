@@ -8,6 +8,7 @@ const NavigationBarApp = lazy(() => import("navigationBarApp/App"));
 const HtmlCssTestApp = lazy(() => import("htmlCssTestApp/App"));
 const JavaScriptTestApp = lazy(() => import("javascriptTestApp/App"));
 const ReactBoardApp = lazy(() => import("reactBoardApp/App"));
+const AuthenticationApp = lazy(() => import("authenticationApp/App"));
 
 // ✅ Svelte 래퍼 컴포넌트 (JSX 대신 수동 마운트)
 const SvelteWrapper = () => {
@@ -56,6 +57,7 @@ const App = () => {
                     <Route path="/javascript-test" element={<JavaScriptTestApp />} />
                     <Route path="/board/*" element={<ReactBoardApp />} />
                     <Route path="/svelte-test" element={<SvelteWrapper />} />
+                    <Route path="/authentication/*" element={<AuthenticationApp />} />
                 </Routes>
             </Suspense>
         </BrowserRouter>

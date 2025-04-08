@@ -49,7 +49,12 @@ const List = () => {
             ) : (
                 <MUIList>
                     {boardList.map((board) => (
-                        <ListItem key={board.id} divider button onClick={() => navigate(`/board/read/${board.id}`)}>
+                        <ListItem
+                            key={board.id}
+                            divider
+                            onClick={() => navigate(`/board/read/${board.id}`)}
+                            sx={{ cursor: 'pointer' }}
+                        >
                             <ListItemText primary={board.title} />
                         </ListItem>
                     ))}

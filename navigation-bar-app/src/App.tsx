@@ -22,6 +22,9 @@ const NavigationBarApp: React.FC = () => {
                 <Button color="inherit" component={Link} to="/svelte-test">
                     Svelte 테스트
                 </Button>
+                <Button color="inherit" component={Link} to="/authentication">
+                    로그인
+                </Button>
             </Toolbar>
         </AppBar>
     );
