@@ -1,25 +1,30 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import SocialLoginButton from "../ui/components/SocialLoginButton.tsx";
+import SocialLoginButton from "../ui/components/SocialLoginButton";
 
 import env from "../../env";
+import {useNavigate} from "react-router-dom";
 
 const AuthenticationPage: React.FC = () => {
+    const navigate = useNavigate();
+
     const handleGoogleLogin = () => {
         const googleAuthUrl = env.api.GOOGLE_AUTHENTICATION_URL;
         const popup = window.open(googleAuthUrl, '_blank', 'width=500,height=600');
 
         const receiveMessage = (event: MessageEvent) => {
-            if (event.origin !== 'http://localhost:9001') return;
+            if (event.origin !== 'http://localhost:3000') return;
 
             const { accessToken, user } = event.data;
             console.log('✅ 로그인 성공:', accessToken, user);
 
-            // 세션 저장 등 처리
-            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('userToken', accessToken);
+            window.dispatchEvent(new Event("user-token-changed")); // ← 요거 추가
 
             window.removeEventListener('message', receiveMessage);
             popup?.close();
+
+            navigate('/');
         };
 
         window.addEventListener('message', receiveMessage);
